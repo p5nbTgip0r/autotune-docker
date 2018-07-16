@@ -6,7 +6,7 @@ _Docker image for running oref0-autotune_
 
 This image is designed to allow you to run `oref0-autotune` ([docs](http://openaps.readthedocs.io/en/latest/docs/Customize-Iterate/autotune.html)) without needing to have a full copy of oref0 installed to your system. I made this image because oref0 can be quite heavy in terms of filesystem and dependency requirements for someone who wants to use the autotune portion of the system. In addition, the setup process can be quite tricky and time consuming if you're trying to use the autotune feature. By using a docker image for this we can make it simple to run as well as clean up afterwards.
 
-This image works by downloading and installing [the packages required to run openaps](https://github.com/openaps/docs/blob/master/scripts/quick-packages.sh) then using npm to install the latest version of [oref0](https://github.com/openaps/oref0). The entrypoint script is designed to 
+This image works by downloading and installing [the packages required to run openaps](https://github.com/openaps/docs/blob/master/scripts/quick-packages.sh) then using npm to install the latest version of [oref0](https://github.com/openaps/oref0). The entrypoint script is designed to run `oref0-autotune` using the environment variables that were passed along through `docker run` 
 
 ### Building the image
 
