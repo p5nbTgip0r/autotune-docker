@@ -21,7 +21,7 @@ This will run autotune on the Nightscout server `https://mynightscout.azurewebsi
 
 ```ssh
 docker run \
-    --rm -it
+    --rm -it \
     --name=autotune \
     -e "START_DATE=2018-06-01" \
     -e "AUTOTUNE_PREFS=--end-date=2018-06-05" \
@@ -42,9 +42,9 @@ Providing a volume at `/data` in the container will automatically link and use t
 
 ```sh
 docker run \
-	--name=autotune \
-	-v /host/path:/data \
-	autotune
+    --name=autotune \
+    -v /host/path:/data \
+    autotune
 ```
 
 ### Environment variables
@@ -62,9 +62,9 @@ Autotune permits some additional command line preferences that are not handled b
 
 ```sh
 docker run \
-  --name=autotune \
-  -e "AUTOTUNE_PREFS=--end-date=2018-06-05" \
-	autotune
+    --name=autotune \
+    -e "AUTOTUNE_PREFS=--end-date=2018-06-05" \
+    autotune
 ```
 
 ### Troubleshooting
