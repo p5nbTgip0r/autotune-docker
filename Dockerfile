@@ -17,7 +17,7 @@ ENV API_SECRET=""
 
 ################
 
-RUN apk update && apk add bash bc curl git jq && \
+RUN apk update && apk add bash bc coreutils curl git jq && \
       mkdir -p /openaps/settings /openaps/autotune && chown node /openaps/*
 COPY ./oref0 /oref0
 WORKDIR /oref0
