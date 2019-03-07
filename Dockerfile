@@ -17,8 +17,9 @@ ENV API_SECRET=""
 
 ################
 
-RUN apk update && apk add bash bc coreutils curl git jq && \
-      mkdir -p /openaps/settings /openaps/autotune && chown node /openaps/*
+RUN apk update && apk add bash bc coreutils curl git jq tzdata && \
+      mkdir -p /openaps/settings /openaps/autotune && \
+      chown -Rh node:node /openaps/ /etc/localtime
 COPY ./oref0 /oref0
 WORKDIR /oref0
 RUN npm install -g

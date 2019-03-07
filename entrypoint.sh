@@ -24,6 +24,23 @@ else
   cp /data/profile.json /openaps/settings/autotune.json
 fi
 
+TIMEZONE="$(jq '.timezone' /data/profile.json | tr -d \")"
+echo "TIMEZONE: ${TIMEZONE}"
+if [[ "${TIMEZONE}" = "null" ]]; then
+  echo "No timezone detected in profile, exiting as to not provide inaccurate results"
+  exit
+else
+  if [[ -f /usr/share/zoneinfo/"${TIMEZONE}" ]]; then
+    cp /usr/share/zoneinfo/"${TIMEZONE}" /etc/localtime
+  else
+    echo "Nonexistent timezone specified, exiting"
+    exit
+  fi
+fi
+
+date
+id
+ls -l /data /openaps
 oref0-autotune --dir=/openaps --ns-host="${NS_HOST}" --start-date="${START_DATE}" ${AUTOTUNE_PREFS}
 
 if ! [[ -s /openaps/autotune/autotune_recommendations.log ]]; then
