@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM node:alpine
 
 ################
 # These variables are here as a list of what variables are used/checked
@@ -17,22 +17,13 @@ ENV API_SECRET=""
 
 ################
 
+RUN apk update && apk add bash bc coreutils curl git jq tzdata && \
+      mkdir -p /openaps/settings /openaps/autotune && \
+      chown -Rh node:node /openaps/ /etc/localtime
+COPY ./oref0 /oref0
+WORKDIR /oref0
+RUN npm install -g
+
 COPY entrypoint.sh /entrypoint.sh
-
-ADD https://raw.githubusercontent.com/openaps/docs/master/scripts/quick-packages.sh /tmp/
-
-RUN mkdir -p "/root/myopenaps/settings" \
-    && mkdir -p "/root/myopenaps/autotune" \
-    && mkdir -p "/data/" \
-    && touch "/root/myopenaps/settings/profile.json" \
-    && touch "/root/myopenaps/autotune/autotune_recommendations.log" \
-    && touch "/data/profile.json" \
-    && chmod +x "/tmp/quick-packages.sh" \
-    && chmod +x "/entrypoint.sh" \
-    && apt-get update \
-    && apt-get install -y sudo curl
-
-RUN /tmp/quick-packages.sh \
-    && npm list -g oref0 | egrep oref0@0.5.[5-9] || (echo Installing latest oref0 package && sudo npm install -g oref0)
-
-CMD [ "/entrypoint.sh" ]
+USER node
+CMD ["/entrypoint.sh"]
